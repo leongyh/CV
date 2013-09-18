@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+	<div data-role="content">
+		<!--Login-->
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+			<li data-role="list-divider" data-theme="b">Registration</li>
+			<li>
+				<div class="containing-element">
+					<p>
+						Please fill in all required(*) fields below.
+						<form action="/register" method="POST" name="register" data-ajax="false">
+							{{form.hidden_tag()}}
+							<p>
+								Username*:<br>
+								{{form.username(size=50)}}<br>
+								{% for error in form.errors.username %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>	
+								Password*:<br>
+								{{form.password}}<br>
+								{% for error in form.errors.password %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								Re-confirm password*:<br>
+								{{form.password_repeat}}<br>
+								{% for error in form.errors.password_repeat %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								E-mail*:<br>
+								{{form.email(size=100)}}<br>
+								{% for error in form.errors.email %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								Organization*:<br>
+								{{form.organization}}<br>
+								{% for error in form.errors.organization %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								Title/Position*:<br>
+								{{form.title(size=30)}}<br>
+								{% for error in form.errors.title %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								First Name*:<br>
+								{{form.firstName(size=70)}}<br>
+								{% for error in form.errors.firstName %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								Last Name*:<br>
+								{{form.lastName(size=70)}}<br>
+								{% for error in form.errors.lastName %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p>
+								Phone Number:<br>
+								{{form.phone(size=30)}}<br>
+								{% for error in form.errors.phone %}
+								<span style="color: red;">[{{error}}]</span>
+								{% endfor %}<br>
+							</p>
+							<p><input type="submit" value="Sign In"></p>
+						</form>
+					<p>
+				</div>
+			</li>
+		</ul>
+		<!--Login-->
+	</div>
+{% endblock %}

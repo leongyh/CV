@@ -1,0 +1,175 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block script %}
+<script type=text/javascript>
+	var database_host = "{{ host }}";
+	var system_name = "{{ system }}";
+	
+	/*---Start Data AJAX and Realtime Update---*/
+	function getData(system)
+	{
+		var request = new XMLHttpRequest();
+		var data = null;
+		
+		request.open("GET", "http://" + database_host + ":8080/data/" + system + "?app=dashboard", true);
+		request.send(null);
+		request.onreadystatechange = function() {
+			if (request.readyState == 4){
+				data = JSON.parse(request.responseText);
+				updateData(data);
+			}
+		};
+	}
+	
+	function updateData(data)
+	{
+		for (var i = 0; i < data.datastreams.length; i++) {
+			writeSpan(data.datastreams[i].id,
+						data.datastreams[i].current_value + " " + data.datastreams[i].unit.symbol);
+		}
+	}
+	
+	function writeSpan(spanID, text)
+	{
+		var spanElements = document.getElementsByTagName("span");
+		
+		//this is necessary for now as id attributes for span tag is not unique.
+		//span has no name attribute which alllows none-unique mapping.
+		//span tag is necessary for the jquery mobile numbers to display.
+		//Either optimize looping (worst case n^2)
+		//or change the template design frontend.
+		for (var i = 0; i < spanElements.length; i++) {
+			if (spanElements[i].getAttribute("id") == spanID) {
+				spanElements[i].innerHTML = text;
+			}
+		}
+	}
+	/*---End Data AJAX and Realtime Update---*/
+	/*---Start Controls AJAX and Update---*/
+	function getControls(system)
+	{
+		var request = new XMLHttpRequest();
+		var controlsData = null;
+		
+		request.open("GET", "http://" + database_host + ":8080/controls/" + system + "?format=json", true);
+		request.send(null);
+		request.onreadystatechange = function() {
+			if (request.readyState == 4){
+				controlsData = JSON.parse(request.responseText);
+				initializeControls(controlsData);
+			}
+		};
+	}
+	
+	//needs to be more dynamic
+	function initializeControls(controls)
+	{
+		var MASTER = $("#master_switch");
+		var PUMP = $("#pump_switch");
+		var LIGHTING = $("#light_switch");
+		
+		if (controls["instructionStream"]["pump"] == "on") {
+			PUMP.val('on').slider('refresh');
+		} else if (controls["instructionStream"]["pump"] == "off") {
+			PUMP.val('off').slider('refresh');
+		}
+		
+		if (controls["instructionStream"]["light"] == "on") {
+			LIGHTING.val('on').slider('refresh');
+		} else if (controls["instructionStream"]["light"] == "off") {
+			LIGHTING.val('off').slider('refresh');
+		}
+		
+		var pumpVal = PUMP[0].selectedIndex == 1 ? true:false;
+		var lightingVal = LIGHTING[0].selectedIndex == 1 ? true:false;
+		
+		if (pumpVal || lightingVal) {
+			MASTER.val('on').slider('refresh');
+		} else {
+			MASTER.val('off').slider('refresh');
+		}
+	}
+	/*---End Controls AJAX and Update---*/
+	/*---Start Dashboard Initialization and Interval Update---*/
+	function initialize()
+	{
+		getData(system_name);
+		getControls(system_name);
+	}
+	
+	//interval in ms. Static as of now, but should be dynamic as user specified.
+	var interval = 5000; 
+	
+	$(function()
+	{
+		initialize();
+		setInterval(function(){ getData(system_name); }, interval);
+	});
+	/*---End Dashboard Initialization and Interval Update---*/
+</script>
+{% endblock %}
+
+{% block header %}
+	<div data-role="header" data-theme="c"> 
+		<h1>{{ system }}</h1> 
+	</div>
+{% endblock %}
+
+{% block body %}
+	<!--Content-->
+	<div data-role="content"> 
+		<form action="/dashboard?system={{ system }}&form=master" method="POST" name="masterControls" data-ajax="false">
+			<fieldset data-role="collapsible" data-theme="b" data-content-theme="d">
+				<legend>Master Controls</legend>
+				<p>
+					{{ mastercontrolsform.master_switch.label }}<br>
+					{{ mastercontrolsform.master_switch(**{'data-role': 'slider'}) }} 
+				</p>
+				<p>
+					<input type="submit" value="Post Master Controls">
+				</p>
+			</fieldset>
+		</form>
+		
+		<form action="/dashboard?system={{ system }}&form=controls" method="POST" name="controls" data-ajax="false">
+			<fieldset data-role="collapsible" data-theme="b" data-content-theme="d">
+				<legend>System Controls</legend>
+				<p>
+					{{ controlsform.light_switch.label }}<br>
+					{{ controlsform.light_switch(**{'data-role': 'slider'}) }}
+				</p>
+				<p>
+					{{ controlsform.pump_switch.label }}<br>
+					{{ controlsform.pump_switch(**{'data-role': 'slider'}) }}
+				</p>
+				<p>
+					<input type="submit" value="Post Controls">
+				</p>
+			</fieldset>
+		</form>
+		
+		<div data-role="collapsible" data-theme="b" data-content-theme="d">
+			<h3>Monitoring</h3>
+			<ul data-role="listview">
+				<li><a href="/charts?system={{ system }}">Flow Rate<span class="ui-li-count" id="PumpFlowRate"></span></a></li>
+				<li><a href="/charts?system={{ system }}">Water Temperature<span class="ui-li-count" id="TankWaterTempSI"></span></a></li>
+				<li><a href="/charts?system={{ system }}">External Temperature<span class="ui-li-count" id="OutsideTankTempSI"></span></a></li>
+			</ul>
+			<a href="charts?system={{ system }}" data-role="button" data-ajax="false">View Charts</a>
+		</div><!-- /collapsible -->
+		
+		<form action="/dashboard?system={{ system }}&form=comments" method="POST" name="comments" data-ajax="false">
+			<fieldset data-role="collapsible" data-theme="b" data-content-theme="d">
+				<legend>Comments</legend>
+				<p>
+					{{ commentform.comment.label }}<br>
+					{{ commentform.comment }}
+				</p>
+				<p>
+					<input type="submit" value="Post Comments">
+				</p>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+#Things to do:
+-Error exceptions for dashboard of non-existant systems
+-Exceptions when charts isn't working eg. system off
+-Make a wrapper to create JSON posts. Makes creation neater.
+
+#Harder things to do:
+-Find a way to have worker nodes do certain things
+-Define ACL's to protect Parse.com data if we do indeed keep using it.
+	Guide: https://www.parse.com/questions/javascript-sdk-security
+
+!REFACTOR AFTER FIRST PROTOTYPE
+-Refactor base.html to contain the nav panel	...X_DONE
+-Refactor base.html to contain the header		...X_DONE
+-Refactor DB connections and actions

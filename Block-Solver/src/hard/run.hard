@@ -1,0 +1,68 @@
+h=/home/ff/cs61bl/code/proj3/testing/hard
+echo '===================================================================='
+echo "Running hard puzzles; last script change = April 23, 2010"
+echo '=== century (100 moves) and century 1.5 (150 moves)'
+echo '--- test 1'
+$h/runsuccess.sh handout.config.2 goal.1.from.handout hard
+echo '--- test 2'
+$h/runsuccess.sh century+180 century+180.goal hard
+echo '--- test 3'
+$h/runsuccess.sh handout.config.2 century.1.5.goal hard
+echo '--- test 4'
+$h/runsuccess.sh century+180 century.1.5+180.goal hard
+
+echo '=== tests with lots of blocks or space'
+echo '--- test 5'
+$h/runsuccess.sh big.tray.4 many.blocks.20.goal hard
+echo '--- test 6'
+$h/runsuccess.sh big.tray.4 many.blocks.20+180.goal hard
+echo '--- test 7'
+$h/runsuccess.sh big.tray.4 many.blocks.100.goal hard
+echo '--- test 8'
+$h/runsuccess.sh big.tray.1 big.tray.1.goal hard
+echo '--- test 9'
+$h/runsuccess.sh big.tray.3 big.tray.3.goal hard
+
+echo '=== more tests'
+echo '--- test 10 (77? moves)'
+$h/runsuccess.sh c22 22.goal hard
+echo '--- test 11 (40 moves)'
+$h/runsuccess.sh c25 15.23-27.30.41.goal hard
+echo '--- test 12 (49 moves)'
+$h/runsuccess.sh c26 15.23-27.30.41.goal hard
+echo '--- test 13 (113 moves)'
+$h/runsuccess.sh c43-45 45.goal hard
+echo '--- test 14 (71? moves)'
+$h/runsuccess.sh c46 46.goal hard
+
+echo '=== tests with 6x5 boards'
+echo '--- test 15 (55 moves, 6x5)'
+$h/runsuccess.sh c53 53.54.64.goal hard
+echo '--- test 16 (44 moves, 6x5)'
+$h/runsuccess.sh c54 53.54.64.goal hard
+echo '--- test 17 (48 moves, 6x5)'
+$h/runsuccess.sh c55 55.56.goal hard
+echo '--- test 18 (47 moves, 6x5)'
+$h/runsuccess.sh c64 53.54.64.goal hard
+
+echo '=== tests with 6x6 boards'
+echo '--- test 19 (103 moves, 6x6)'
+$h/runsuccess.sh c71 71.goal hard
+echo '--- test 20 (needs 103 moves)'
+$h/runsuccess.sh pandemonium pandemonium.goal hard
+
+echo '=== more hard puzzles'
+echo '--- test 21 (needs 123 moves)'
+$h/runsuccess.sh supercompo supercompo.goal hard
+echo '--- test 22 (needs 81 moves)'
+$h/runsuccess.sh lane.rouge lane.rouge.goal hard
+echo '--- test 23 (needs 209 moves)'
+$h/runsuccess.sh d209 d209.goal hard
+echo '--- test 24 (needs 231 moves)'
+$h/runsuccess.sh little.house little.house.goal hard
+echo '--- test 25 (needs 138 moves)'
+$h/runsuccess.sh super.century super.century.goal hard
+echo '--- test 26'
+$h/runsuccess.sh super.century2 super.century2.goal hard
+echo '--- test 27'
+$h/runsuccess.sh quzzle quzzle.goal hard

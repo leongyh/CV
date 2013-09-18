@@ -1,0 +1,17 @@
+dads			dads.goal		shortest solution is 58 moves
+dads+90			dads+90.goal		"Dads" rotated
+dads+180		dads+180.goal		"Dads" rotated
+dads+270		dads+270.goal		"Dads" rotated
+blockado		blockado.goal		"Blockado" (solvable in 74
+						  moves)
+init.from.handout	goal.1.from.handout	harder puzzle from project
+						  writeup, referred to as
+						  "The Donkey" in
+						  Winning Ways (can be
+						  solved in 83 moves)
+handout.config.1+90	handout.goal+90		"Donkey" rotated
+handout.config.1+180	handout.goal+180	"Donkey" rotated
+handout.config.1+270	handout.goal+270	"Donkey" rotated
+
+Other puzzles are from *Sliding Piece Puzzles*, by L.E. Hordern,
+Oxford University Press, 1986.

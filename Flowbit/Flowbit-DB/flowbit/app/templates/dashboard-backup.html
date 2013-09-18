@@ -1,0 +1,122 @@
+{% block body %}
+<div data-role="page" id="homePage" class="page" data-title="home">
+	<div data-role="header" data-theme="b">
+		<h1>Flowbit</h1>
+		<a href="#leftpanel1" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b" class="ui-btn-left"></a>
+		<a href="index.html" rel="external" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true" data-theme="b" class="ui-btn-right"></a>
+	</div>
+
+	<div data-role="header" data-theme="c"> 
+		<h1>System A</h1> 
+	</div> 
+
+	<!--Content-->
+	<div data-role="content"> 
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+			<li data-role="list-divider" data-theme="b">Master Control</li>
+			<li>
+				<div class="containing-element">
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a">
+							<h1>System Status</h1>
+						</div>
+						<div class="ui-block-b">                                    
+							<form>
+								<select name="flip-min" id="flip-min" data-role="slider">
+									<option value="off"> Off</option>
+									<option value="on">On</option>
+								</select>
+							</form>
+						</div>
+					</fieldset>	
+					<input type="submit" value="Submit Change" />
+				</div> 
+			</li>
+		</ul>               
+		
+		<!--Control Panel-->
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+			<li data-role="list-divider" data-theme="b">Control Panel</li>
+			<li>
+				<div class="containing-element">
+					<form>
+						<ul data-role="listview" data-inset="true">
+							<li><a href="flowRateChart.html">Flow Rate (SI)<span class="ui-li-count">2.04 LPM</span></a></li>
+							<li data-role="fieldcontain">
+								<fieldset class="ui-grid-a">
+									<div class="ui-block-a">
+										<h1>Pump Status</h1>
+									</div>
+									<div class="ui-block-b">
+										<select name="ledSwitch" id="ledSwitch" data-role="slider">
+											<option value="off">Off</option>
+											<option value="on">On</option>
+										</select>			
+									</div>
+								</fieldset>
+								<input type="range" name="flowSlider" id="flowSlider" value="0" min="0" max="100"  />
+							</li>
+						</ul>
+					</form>	
+					<form>
+						<ul data-role="listview" data-inset="true">
+							<li><a href="flowRateChart.html">UV Light<span class="ui-li-count">12 WATTS</span></a></li>
+							<li data-role="fieldcontain">
+								<fieldset class="ui-grid-a">
+									<div class="ui-block-a">
+										<h1>UV Light Status</h1>
+									</div>
+									<div class="ui-block-b">
+										<select name="ledSwitch" id="ledSwitch" data-role="slider">
+											<option value="off">Off</option>
+											<option value="on">On</option>
+										</select>
+									</div>
+								</fieldset>
+							</li>
+						</ul>
+						<input type="submit" value="Submit Change" />	
+					</form>
+					<br>			
+				</div>
+			</li>
+		</ul>
+
+		<!-- MONITORING -->				
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+			<li data-role="list-divider" data-theme="b">Monitoring</li>
+			<li>
+				<div class="containing-element">
+					<form>
+						<ul data-role="listview" data-inset="true">
+							<li><a href="index.html">TDS <span class="ui-li-count">12 mg/L</span></a></li>
+							<li><a href="index.html">Turbidity <span class="ui-li-count">20 NTU</span></a></li>
+							<li><a href="index.html">Water Temperature <span class="ui-li-count">25 C</span></a></li>
+							<li><a href="index.html">Volume Dispensed (Daily)<span class="ui-li-count">328 L</span></a></li>
+							<li><a href="index.html">Hours of Operation (Daily)<span class="ui-li-count">6 Hrs</span></a></li>
+						</ul>
+					</form>		
+				</div>
+			</li>                    
+		</ul>
+	</div>
+	
+	<!-- leftpanel1  -->
+	<div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-dismissible="true" data-theme="a">
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider" data-theme="b"> Navigation </li>
+			<li><a href="index.html" rel="external">Home</a></li>
+			<li><a>System Map</a></li>
+		</ul>						
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider" data-theme="b"> System List </li>
+			<li><a href="aquarium.html" rel="external"><span class="ui-li-count">OK</span>Nick's Aquarium</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Alpha</a></li>
+			<li><a href="dashboard.html" rel="external"><span class="ui-li-count">OK</span>System Bravo</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Charlie</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Delta</a></li>
+		</ul>
+	</div>
+	<!-- /leftpanel1 -->			
+</div>
+{% endblock %}

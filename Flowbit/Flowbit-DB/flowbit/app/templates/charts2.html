@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="../static/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="../static/flot/jquery.flot.time.js" type="text/javascript"></script>
+<script src="../static/flot/jquery.flot.resize.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block script %}
+<script type=text/javascript>
+	/*---Start Chart---*/
+	var seriesData = [];
+	var lastTime = null; //last time of data picked up
+	var isAJAXReady = false; //used as checkpoint to get ajax synchronicity
+	var stream = 0;
+	
+	var database_host = "{{ host }}";
+	var system_name = "{{ system }}";
+	
+	var interval = 5000;
+	var intervalHandle = null;
+	
+	var options = {
+		series: { shadowSize: 1 },
+		lines: { fill: true, fillColor: { colors: [ { opacity: 1 }, { opacity: 0.1 } ] }},
+		//yaxis: { min: 0, max: 20 },
+		xaxis: { 
+				mode: "time",
+				minTickSize: [1, "minute"],
+				timeformat: "%b/%d %H:%M:%S",
+				},
+		colors: ["#F4A506"],
+	};
+	
+	function getInitialData(system, timeSpan)
+	{
+		if(typeof(timeSpan)==='undefined') timeSpan = 5;
+		
+		var request = new XMLHttpRequest();
+		var data = null;
+		var currentTime = Math.round((new Date()).getTime()/1000);
+		//find better way to get last X minutes and to update xaxis ticker
+		var sinceTime = currentTime - (timeSpan * 60);
+		//var stream = getStream();
+		
+		request.open("GET", "http://" + database_host + ":8080/data/" + system
+							+ "?" + "app=plot" 
+							+ "&" + "stream=" + stream 
+							+ "&" + "since=" + sinceTime 
+							, true);
+		request.send(null);
+		request.onreadystatechange = function() {
+			if (request.readyState == 4){
+				data = JSON.parse(request.responseText);
+				initializeSeries(data);
+				isAJAXReady = true;
+			}
+		};
+	}
+	
+	function initializeSeries(jsonObj)
+	{
+		for (var i = 0; i < jsonObj.numPairs; i++)
+			//Multiply time value by 1000 to convert seconds to microseconds.
+			//Reason is JSON returns seconds unit and Flot accepts microseconds unit.
+			seriesData.push([jsonObj.xaxis[i] * 1000, jsonObj.yaxis[i]]);
+			
+		$.plot($("#plot"), [seriesData], options);
+		
+		lastTime = ((seriesData[seriesData.length - 1][0]) / 1000) + 1;
+	}
+	
+	function getNewData(system)
+	{
+		if (isAJAXReady == true)
+		{
+			isAJAXReady = false;
+			
+			var request = new XMLHttpRequest();
+			var data = null;
+			//var stream = getStream();
+			
+			request.open("GET", "http://" + database_host + ":8080/data/" + system
+							+ "?" + "app=plot" 
+							+ "&" + "stream=" + stream 
+							+ "&" + "since=" + lastTime
+							, true);
+			request.send(null);
+			request.onreadystatechange = function() {
+				if (request.readyState == 4){
+					data = JSON.parse(request.responseText);
+					updateSeries(data);
+					isAJAXReady = true;
+				}
+			};
+		}
+	}
+	
+	function updateSeries(jsonObj)
+	{
+		seriesData.splice(0, jsonObj.numPairs);
+		
+		for (var i = 0; i < jsonObj.numPairs; i++)
+			//Multiply time value by 1000 to convert seconds to microseconds.
+			//Reason is JSON returns seconds unit and Flot accepts microseconds unit.
+			seriesData.push([jsonObj.xaxis[i] * 1000, jsonObj.yaxis[i]]);
+		
+		$.plot($("#plot"), [seriesData], options);
+		
+		lastTime = ((seriesData[seriesData.length - 1][0]) / 1000) + 1;
+	}
+	
+	function clearSeries()
+	{
+		seriesData.length = 0; //clear array somehow
+	}
+	
+	function changeSpan(sinceTime)
+	{
+		clearInterval(intervalHandle);
+		isAJAXReady = false;
+		clearSeries();
+		
+		getInitialData(system_name, sinceTime);
+		intervalHandle = setInterval(function(){ getNewData(system_name); }, interval);
+	}
+	
+	function changeStream(newStream)
+	{
+		clearInterval(intervalHandle);
+		isAJAXReady = false;
+		clearSeries();
+		
+		stream = newStream;
+		getInitialData(system_name);
+		intervalHandle = setInterval(function(){ getNewData(system_name); }, interval);
+	}
+	
+	$(function() { //ensures DOM ready		
+		//This is only temporary to pick up the correct stream based 
+		//on what chart is being displayed. need to find a better 
+		//solution.
+		function getStream()
+		{
+			//needs to be DOM ready
+			var chartName = document.getElementById("chartName").innerHTML;
+			
+			if (chartName == "Tank Water Temperature (SI)") {
+				return 0
+			} else if (chartName == "Tank Water Temperature (US)") {
+				return 1;
+			} else if (chartName == "External Temperature (SI)") {
+				return 2;
+			} else if (chartName == "External Temperature (US)") {
+				return 3;
+			} else if (chartName == "Flow Rate (SI)") {
+				return 4;
+			}
+		}
+		
+		getInitialData(system_name);
+		//setTimeout(function(){ /*Delay*/ }, interval);
+		intervalHandle = setInterval(function(){ getNewData(system_name); }, interval);
+	});
+	/*---End Chart---*/
+</script>
+{% endblock %}
+
+{% block header %}
+	<div data-role="header" data-theme="c"> 
+		<h1>{{ system }}</h1> 
+	</div>
+{% endblock %}
+
+{% block body %}
+	<!--Content-->
+	<div data-role="content">
+		<div id="chartName" align="center">Flow Rate (SI)</div>
+		<div id="plot" style="width: 100%; height:300px; left: 5px"></div>
+	</div>
+	<div data-role="navbar" data-grid="d">
+		<ul>
+			<li><a href="#" class="ui-btn-active">Minute</a></li>
+			<li><a href="#">Hour</a></li>
+			<li><a href="#">Day</a></li>
+			<li><a href="#">Week</a></li>
+			<li><a href="#">Month</a></li>
+		</ul>
+	</div>
+	<div data-role="footer" data-id="foo1" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" class="ui-btn-active" onclick="changeStream(0);">Flow Rate</a></li>
+				<li><a href="#" onclick="changeStream(1);">Water Temp</a></li>
+				<li><a href="#" onclick="changeStream(0);">Air Temp</a></li>
+			</ul>
+		</div>
+	</div><!-- /footer -->
+{% endblock %}

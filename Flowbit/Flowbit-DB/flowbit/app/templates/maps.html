@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkKuAhmeg1JmjYK4hX5-P6m-V1bVvc9cM&sensor=true"></script>
+<script type="text/javascript">
+	$(function() {
+		var mapOptions = { 
+			zoom : 8, 
+			center : new google.maps.LatLng(37.874311, -122.272854),
+			mapTypeId : google.maps.MapTypeId.ROADMAP 
+		};
+		
+		var $content = $("#{{pageid}} div:jqmData(role=content)"); //#maps is based on the div page id designated by views
+		$content.height(screen.height - 50);
+		var map = new google.maps.Map($content[0], mapOptions);
+		$.mobile.changePage($("#{{pageid}}"));
+			
+		var system_list = [];
+		{% for sys in systems %}
+			system_list.push({ "SYSTEMNAME": "{{ sys.SYSTEMNAME }}", "Lat": {{ sys.Lat }}, "Long": {{ sys.Long }} });
+		{% endfor %}
+		
+		var infowindow = new google.maps.InfoWindow();
+		var marker;
+		
+		for (var i = 0; i < system_list.length; i++) {  
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(system_list[i].Lat, system_list[i].Long),
+				map: map
+			});
+
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+					infowindow.setContent(system_list[i].SYSTEMNAME);
+					infowindow.open(map, marker);
+				}
+			})(marker, i));
+		}
+	});
+</script>
+{% endblock %}
+
+{% block body %}
+	<!--Content-->
+	<div data-role="content"></div>
+{% endblock %}

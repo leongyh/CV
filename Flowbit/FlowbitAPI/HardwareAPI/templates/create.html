@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+<form action="../create/" method="post">
+	{{ form.non_field_errors }}
+	<div class="fieldWrapper">
+		{{ form.system_id.errors }}
+		<label for="system_id">System ID</label>
+		{{ form.system_id }}
+	</div>
+	<p><input type="submit" value="Create System" /></p>
+</form>
+{% endblock %}

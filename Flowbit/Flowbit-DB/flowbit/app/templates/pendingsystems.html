@@ -1,0 +1,59 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% script block %}
+<!-- Good Guides:
+http://stackoverflow.com/questions/8102030/jquery-load-more-button-only-when-theres-something-to-load
+http://flask.pocoo.org/docs/patterns/jquery/
+-->
+<script type=text/javascript>
+	var system_count = 0;
+
+	$(function() {
+		$('#loadmorebutton').bind('click', function() {
+			system_count += 10; //loads 10 systems per call
+			$.getJSON($SCRIPT_ROOT + '/_load_pending_systems', {
+				skip: system_count
+			}, function(data) {
+				//do something with data like populate list
+				data.systems;  //wat do with this data? is it an array?
+			});
+			return false;
+		});
+	});
+</script>
+{% end block %}
+
+{% block body %}
+<div data-role="page" id="index" class="page" data-title="index">
+	<div data-role="header" data-theme="b">
+		<h1>Flowbit</h1>
+		<a href="#navpanel" data-role="button" data-icon="bars" data-iconpos="notext" data-theme="b" class="ui-btn-left"></a>
+	</div>
+	<div data-role="content">
+		<h1>Welcome to Flowbit Control Center</h1>
+		<p>Hit the top right button on the header to access menu panel.</p>
+		<br>
+		<h2>Notifications: </h2>
+		<p><i>You have no new notifications.</i></p> <!--implement notifications system in future here using js to fill div or via iframe-->
+	</div>
+	
+	<!-- navpanel  -->
+	<div data-role="panel" id="navpanel" data-position="left" data-display="reveal" data-dismissible="true" data-theme="a">
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider" data-theme="b"> Navigation </li>
+			<li><a href="index.html" rel="external">Home</a></li>
+			<li><a>System Map</a></li>
+		</ul>						
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider" data-theme="b"> System List </li>
+			<li><a href="aquarium.html" rel="external"><span class="ui-li-count">OK</span>Nick's Aquarium</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Alpha</a></li>
+			<li><a href="dashboard.html" rel="external"><span class="ui-li-count">OK</span>System Bravo</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Charlie</a></li>
+			<li><a><span class="ui-li-count">!!!</span>System Delta</a></li>
+		</ul>
+	</div>
+	<!-- /navpanel -->
+</div>
+{% endblock %}

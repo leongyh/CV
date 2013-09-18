@@ -1,0 +1,36 @@
+ dout.config.2	goal.1.from.handout	the second hard puzzle from
+										  project, referred to as
+										  "The Century" in Winning
+										  Ways (needs 100 moves)
+century+180			century+180.goal	"Century" rotated 180 degrees
+handout.config.2	century.1.5.goal	"Century and a Half" 
+										  (needs 150 moves)
+century.1.5+180		century.1.5+180.goal "Century and a Half", rotated
+										  180 degrees
+pandemonium			pandemonium.goal	6x6 board (needs 103 moves)
+big.tray.1			big.tray.1.goal		100x100 tray with 1 block
+										  that needs to move to the
+										  other end of the tray
+big.tray.3			big.tray.3.goal		100x100 tray with 2 blocks
+										  that need to move to the
+										  other end of the tray
+big.tray.4			many.blocks.20.goal	100x100 try with 9999 blocks
+										  that need to be rearranged
+big.tray.4			many.blocks.20+180.goal ditto
+big.tray.4			many.blocks.100.goal	ditto
+c22					22.goal				#22 from "Sliding Piece Puzzles"
+										  (needs 77 moves)
+c25					15.23-27.30.41.goal	#25 (needs 40 moves)
+c26					15.23-27.30.41.goal	#26 (needs 49 moves)
+c43-45				45.goal				#45 (needs 113 moves)
+c46					46.goal				#46 (needs 71 moves)
+c53					53.54.64.goal		#53 (6x5 board, needs 55 moves)
+c54					53.54.64.goal		#54 (6x5 board, needs 44 moves)
+c55					55.56.goal			#55 (6x5 board, needs 48 moves)
+c64					53.54.64.goal		#64 (6x5 board, needs 47 mvoes)
+c71					71.goal				#71 (6x6 board, needs 103 moves)
+supercompo				supercompo.goal		123 moves
+lane.rouge				lane.rouge.goal		81 moves
+d209					d209.goal		209 moves
+little.house				little.house.goal	231 moves
+super.century				super.century.goal	138 moves

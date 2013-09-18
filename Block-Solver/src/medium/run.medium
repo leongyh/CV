@@ -1,0 +1,94 @@
+#!/usr/bin/bash
+m=/home/ff/cs61bl/code/proj3/testing/medium
+echo '===================================================================='
+echo "Running medium puzzles; last script change = April 23, 2010"
+echo '--- c15 (63 moves)'
+$m/runsuccess.sh c15 15.23-27.30.41.goal medium
+echo '--- c16 (40 moves)'
+$m/runsuccess.sh c16 16.19.20.goal medium
+echo '--- c18 (33 moves)'
+$m/runsuccess.sh c18 18.21.goal medium
+echo '--- c19 (59 moves)'
+$m/runsuccess.sh c19 16.19.20.goal medium
+echo '--- c20 (45 moves)'
+$m/runsuccess.sh c20.21 16.19.20.goal medium
+echo '--- c21 (26 moves)'
+$m/runsuccess.sh c20.21 18.21.goal medium
+echo '--- c23 (28 moves)'
+$m/runsuccess.sh c23 15.23-27.30.41.goal medium
+echo '--- c24 (32 moves)'
+$m/runsuccess.sh c24 15.23-27.30.41.goal medium
+echo '--- c27a (60 moves)'
+$m/runsuccess.sh c27a 15.23-27.30.41.goal medium
+echo '--- c27b (70 moves)'
+$m/runsuccess.sh c27b 15.23-27.30.41.goal medium
+echo '--- c27c (78 moves)'
+$m/runsuccess.sh c27c 15.23-27.30.41.goal medium
+echo '--- c27d (81 moves)'
+$m/runsuccess.sh c27d 15.23-27.30.41.goal medium
+echo '--- c28 (61 moves)'
+$m/runsuccess.sh c28 28.goal medium
+echo '--- c29 (54 moves)'
+$m/runsuccess.sh c29 29.goal medium
+echo '--- c30 (67 moves)'
+$m/runsuccess.sh c15 15.23-27.30.41.goal medium
+echo '--- c31 (55 moves)'
+$m/runsuccess.sh c31 31.goal medium
+echo '--- c32 (25 moves)'
+$m/runsuccess.sh c32 32.goal medium
+echo '--- c33 (20 moves)'
+$m/runsuccess.sh c33 33.goal medium
+echo '--- c34 (39 moves)'
+$m/runsuccess.sh c34 34.goal medium
+echo '--- c35 (101 moves)'
+$m/runsuccess.sh c35 35.goal medium
+echo '--- c36 (28 moves)'
+$m/runsuccess.sh c36 36.goal medium
+echo '--- c37 (40 moves)'
+$m/runsuccess.sh c37 37.goal medium
+echo '--- c38 (21 moves)'
+$m/runsuccess.sh c38 38.goal medium
+echo '--- c39 (53 moves)'
+$m/runsuccess.sh c39 39.goal medium
+echo '--- c40 (21 moves)'
+$m/runsuccess.sh c40 40.goal medium
+echo '--- c41 (98 moves)'
+$m/runsuccess.sh c15 15.23-27.30.41.goal medium
+echo '--- c43 (55 moves)'
+$m/runsuccess.sh c43-45 43.goal medium
+echo '--- c44 (70 moves)'
+$m/runsuccess.sh c43-45 44.goal medium
+echo '--- c50 (41 moves, 4x6)'
+$m/runsuccess.sh c50-51 50.52.goal medium
+echo '--- c51 (71 moves, 4x6)'
+$m/runsuccess.sh c50-51 51.goal medium
+echo '--- c52 (90 moves, 4x6)'
+$m/runsuccess.sh c52 50.52.goal medium
+echo '--- c56 (55 moves, 6x5)'
+$m/runsuccess.sh c56 55.56.goal medium
+
+echo '=== dads (min 58 moves)'
+echo '--- regular dads'
+$m/runsuccess.sh dads dads.goal medium
+echo '--- dads rotated 90 degrees'
+$m/runsuccess.sh dads+90 dads+90.goal medium
+echo '--- dads rotated 180 degrees'
+$m/runsuccess.sh dads+180 dads+180.goal medium
+echo '--- dads rotated 270 degrees'
+$m/runsuccess.sh dads+270 dads+270.goal medium
+
+echo '=== donkey (min 83 moves)'
+echo '--- regular donkey'
+$m/runsuccess.sh init.from.handout goal.1.from.handout medium
+echo '--- donkey rotated 90 degrees'
+$m/runsuccess.sh handout.config.1+90 handout.goal+90 medium
+echo '--- donkey rotated 180 degrees'
+$m/runsuccess.sh handout.config.1+180 handout.goal+180 medium
+echo '--- donkey rotated 27 degrees'
+$m/runsuccess.sh handout.config.1+270 handout.goal+270 medium
+
+echo '=== other'
+echo '--- big tray'
+$m/runsuccess.sh big.tray.4 big.tray.4.goal medium
+echo '--- blockado (needs 74 moves)'
+$m/runsuccess.sh blockado blockado.goal medium

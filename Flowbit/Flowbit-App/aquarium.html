@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Flow Bit Control Center</title>
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1" />
+		<meta name="description" content="Flow Bit Control Center" />
+		<script src="jquery/jquery.min.js" type="text/javascript"></script>
+		<script src="jquery/mobile/jquery.mobile-1.3.0-beta.1.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="jquery/mobile/jquery.mobile-1.3.0-beta.1.min.css" />
+		<script src="js/aquarium.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="css/flowbit.css" />		
+	</head>
+	
+	<body>
+		<div data-role="page" id="homePage" class="page" data-title="home">
+			<div data-role="header" data-theme="b">
+				<h1>Flowbit</h1>
+				<a href="#leftpanel1" data-role="button" data-icon="bars" data-iconpos="notext" data-inline="true" data-theme="b" class="ui-btn-left"></a>
+				<a href="index.html" rel="external" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true" data-theme="b" class="ui-btn-right"></a>
+			</div>
+
+			<div data-role="header" data-theme="c"> 
+				<h1>Nick's Aquarium</h1> 
+			</div> 
+
+			<!--Content-->
+			<div data-role="content"> 
+				<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+					<li data-role="list-divider" data-theme="b">Aquarium Master Control</li>
+					<li>
+						<div class="containing-element">
+							<form>
+								<ul data-role="listview" data-inset="true">
+									<li data-role="fieldcontain">
+										<fieldset class="ui-grid-a">
+											<div class="ui-block-a">
+												<h1>Master Control Status</h1>
+											</div>
+											<div class="ui-block-b">
+												<select name="masterSwitch" id="masterSwitch" data-role="slider">
+													<option value="off">Off</option>
+													<option value="on">On</option>
+												</select>
+											</div>
+										</fieldset>
+									</li>
+								</ul>
+								<a href="#masterControlsPopup" data-role="button" data-rel="popup" data-position-to="window" data-icon="alert" data-iconpos="right">Post Master Controls</a>
+							</form>
+						</div> 
+					</li>
+				</ul>
+                
+				<!--Control Panel-->
+				<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+					<li data-role="list-divider" data-theme="b">Control Panel</li>
+					<li>
+						<div class="containing-element">
+							<form>
+								<ul data-role="listview" data-inset="true">
+									<li><a href="flowratechartsi.html" rel="external">Pump<span class="ui-li-count" id="FlowrateSI"></span></a></li>
+									<li data-role="fieldcontain">
+										<fieldset class="ui-grid-a">
+											<div class="ui-block-a">
+												<h1>Pump Status</h1>
+											</div>
+											<div class="ui-block-b">
+												<select name="pumpSwitch" id="pumpSwitch" data-role="slider">
+													<option value="off">Off</option>
+													<option value="on">On</option>
+												</select>			
+											</div>
+										</fieldset>
+										<!--<input type="range" name="flowSlider" id="flowSlider" value="0" min="0" max="100"  />-->
+									</li>
+								</ul>
+							</form>
+							<form>
+								<ul data-role="listview" data-inset="true">
+									<li>Lighting</li>
+									<li data-role="fieldcontain">
+										<fieldset class="ui-grid-a">
+											<div class="ui-block-a">
+												<h1>Lighting Status</h1>
+											</div>
+											<div class="ui-block-b">
+												<select name="lightingSwitch" id="lightingSwitch" data-role="slider">
+													<option value="off">Off</option>
+													<option value="on">On</option>
+												</select>
+											</div>
+										</fieldset>
+									</li>
+								</ul>
+							</form>
+							<br>
+							<button data-role="button" data-icon="check" data-iconpos="right" onclick="btnControlsUpdate()">Post Controls</button>
+						</div>
+					</li>
+				</ul>
+
+				<!-- MONITORING -->				
+				<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f">
+					<li data-role="list-divider" data-theme="b">Monitoring</li>
+					<li>
+						<div class="containing-element">
+							<form>
+								<ul data-role="listview" data-inset="true">
+									<!--Need to figure out a way to resolve text clipping -->
+									<li><a href="tempchartsi.html" rel="external">External Temp. (SI)<span class="ui-li-count" id="OutsideTankTempSI"></span></a></li>
+									<li><a href="tempchartus.html" rel="external">External Temp. (US) <span class="ui-li-count" id="OutsideTankTempUS"></span></a></li>
+									<li><a href="watertempchartsi.html" rel="external">Tank Water Temp. (SI) <span class="ui-li-count" id="TankWaterTempSI"></span></a></li>
+									<li><a href="watertempchartus.html" rel="external">Tank Water Temp. (US) <span class="ui-li-count" id="TankWaterTempUS"></span></a></li>
+									<li><a href="flowratechartsi.html" rel="external">Flow Rate (SI)<span class="ui-li-count" id="FlowrateSI"></span></a></li>
+								</ul>
+							</form>
+						</div>
+					</li>
+				</ul>
+				
+				<!-- POPUPS -->
+				<div data-role="popup" data-dismissible="false" data-overlay-theme="a" class="ui-content" id="masterControlsPopup">
+					<p>Are You Sure?<p>
+					<button data-role="button" data-icon="delete" data-inline="true" data-mini="true" onclick="closePopup()">No</button>
+					<button data-role="button" data-icon="check" data-theme="b" data-inline="true" data-mini="true" onclick="btnMasterLockControlsUpdate(); closePopup();">Yes</button>
+				</div>
+			</div>
+			
+			<!-- leftpanel1  -->
+			<div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-dismissible="true" data-theme="a">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider" data-theme="b"> Navigation </li>
+					<li><a href="index.html" rel="external">Home</a></li>
+					<li><a>System Map</a></li>
+				</ul>						
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider" data-theme="b"> System List </li>
+					<li><a href="aquarium.html" rel="external"><span class="ui-li-count">OK</span>Nick's Aquarium</a></li>
+					<li><a><span class="ui-li-count">!!!</span>System Alpha</a></li>
+					<li><a href="dashboard.html" rel="external"><span class="ui-li-count">OK</span>System Bravo</a></li>
+					<li><a><span class="ui-li-count">!!!</span>System Charlie</a></li>
+					<li><a><span class="ui-li-count">!!!</span>System Delta</a></li>
+				</ul>
+			</div>
+			<!-- /leftpanel1 -->
+		</div>
+    </body>
+	
+	<script type="text/javascript">
+		function closePopup()
+		{
+			$("#masterControlsPopup").popup( "close" )
+		}
+	</script>
+</html>
