@@ -1,0 +1,14 @@
+net: "/home/ec2-user/Project/logreg/train_val2.prototxt"
+test_iter: 12
+test_interval: 1000
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.1
+stepsize: 5000
+display: 1000
+max_iter: 10000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "/home/ec2-user/Project/logreg/snap/train2"
+solver_mode: GPU

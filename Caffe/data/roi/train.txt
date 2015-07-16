@@ -1,0 +1,2 @@
+/home/ec2-user/Project/data/caffe/trainS1.h5
+/home/ec2-user/Project/data/caffe/trainS2.h5

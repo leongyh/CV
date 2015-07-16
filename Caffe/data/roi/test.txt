@@ -1,0 +1,2 @@
+/home/ec2-user/Project/data/caffe/testS1.h5
+/home/ec2-user/Project/data/caffe/testS2.h5
