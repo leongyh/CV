@@ -1,0 +1,29 @@
+================================
+			README
+================================
+
+Name: Yew Hung Leong
+SID: 22426315
+
+Instructions
+--------------------------------
+The assignment is coded in Python using
+the recommended tools (available via the 
+Anaconda package).The format of which
+the code is presented is through an
+iPython notebook both for convinience and
+clarity. iPython can be obtained via the
+Anaconda package as well. Run the command 
+"ipython notebook" on the terminal to access
+iPython. Look for the file "hw5.ipynb" and
+open it.
+
+The file contains the data preproccessor
+and classes to the DTree and Random Forest. 
+The file creates and runs accuracy tests on both 
+classifiers. There are 3 included segmentation
+methods (brute force, means of means, and 
+brute force with random attribute selection)
+which can be passed during the tree intialization
+It also runs the kaggle tests.
+Please run the data preprocessing segment first.

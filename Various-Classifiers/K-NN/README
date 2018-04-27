@@ -1,0 +1,22 @@
+================================
+			README
+================================
+
+Instructions
+--------------------------------
+The assignment is coded in Python using
+the recommended tools (available via the 
+Anaconda package).The format of which
+the code is presented is through an
+iPython notebook both for convinience and
+clarity. iPython can be obtained via the
+Anaconda package as well. Run the command 
+"ipython notebook" on the terminal to access
+iPython. Look for the file "knn.ipynb" and
+open it.
+
+All classifiers are segregated into their
+respective questions. The k-nn classifier
+in Q1 and the joke classifiers in Q2.
+The JokePredictorBetter classifier is used
+for Kaggle predictions

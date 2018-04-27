@@ -1,1 +1,0 @@
-<StringIO.StringIO instance at 0xa6a638>

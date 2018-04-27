@@ -1,7 +1,0 @@
-To register:
-
-r:{'system_id':'test','secret_key':'jOmmlaz8dTAuVgMkMDt1','latitude':'0','longitude':'0','meter_size':'5.5'}
-
-
-To send data:
-d:[[date,value], [date,value], ...]

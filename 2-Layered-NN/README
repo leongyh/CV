@@ -1,0 +1,24 @@
+
+
+
+
+Instructions
+
+
+The 2NN is coded in Python using
+ tools from the 
+Anaconda package. The format of which
+ the code is presented is through an 
+iPython notebook both for convinience and 
+clarity. iPython can be obtained via the 
+Anaconda package as well. Run the command 
+"ipython notebook" on the terminal to access
+ iPython. 
+
+The Neural Net is wrapped in a class and 
+the train fuction takes in parameters 
+learning rate, a specified dampening 
+function for the learning rate in the form
+ f(rate, iterations) and returns a rate, threshold.
+The analytics function does the plotting and takes 
+parameter of max iterations to run.

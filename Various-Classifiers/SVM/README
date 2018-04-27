@@ -1,0 +1,27 @@
+================================
+			README
+================================
+
+Name: Yew Hung Leong
+SID: 22426315
+
+Instructions
+--------------------------------
+The assignment is coded in Python using
+the recommended tools (available via the 
+Anaconda package).The format of which
+the code is presented is through an
+iPython notebook both for convinience and
+clarity. iPython can be obtained via the
+Anaconda package as well. Run the command 
+"ipython notebook" on the terminal to access
+iPython. Look for the file "svm.ipnby" and
+open it.
+
+Running the entire file will produce the
+results for the entire assignment. There
+are functions called "test_p1", "test_p2",
+"test_p3", "test_p4" that will directly
+output the solutions for each individual 
+problems. The functions have an adjustable
+parameters as explain under comments.
